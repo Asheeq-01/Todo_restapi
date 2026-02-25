@@ -12,24 +12,17 @@ from rest_framework.response import Response
 class TodoView(viewsets.ModelViewSet):
     queryset=TodoModel.objects.all()
     serializer_class=TodoSerializer
-    filter_backend=[DjangoFilterBackend,SearchFilter]
+    filter_backends=[DjangoFilterBackend,SearchFilter]
     filterset_fields=['completed','title']
     search_fields=['title']
     
     
-    @action(detail=True ,methods=['get','post'])
-    def completed(self,request,pk=None):
+    @action(detail=True,methods=['post'])
+    def toggle(self,request,pk=None):
         todo=self.get_object()
-        todo.completed=True
+        todo.completed=not todo.completed
         todo.save()
-        return Response({'message':'Todo marked as completed'})
-    
-    @action(detail=True ,methods=['get','post'])
-    def notcompleted(self,request,pk=None):
-        todo=self.get_object()
-        todo.completed=False
-        todo.save()
-        return Response({'message':'Todo marked as Not completed'})
+        return Response({'message':'Todo status toggled','complete':todo.completed})
     
     
     

@@ -7,7 +7,7 @@ from rest_framework.routers import DefaultRouter
 
 
 router=DefaultRouter()
-router.register('todos',TodoView),
+router.register('todos',TodoView)
 
 urlpatterns = [
     path('',include(router.urls))
