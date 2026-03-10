@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { gettodo, toggletodo } from '../service/apicall'
+import { deletetodo, gettodo, toggletodo } from '../service/apicall'
 
 function Home() {
 const [data,setdata]=useState([])
@@ -16,7 +16,13 @@ const [data,setdata]=useState([])
         await fetchtodo()
         
     }
-
+    
+    async function tododelete(id){
+      console.log("deleted")
+      let res=await deletetodo(id)
+      console.log(res)
+      fetchtodo()
+    }
 
 
 useEffect(()=>{fetchtodo()},[])
@@ -71,6 +77,9 @@ useEffect(()=>{fetchtodo()},[])
           <small style={{ color: "#aaa" }}>
             {new Date(item.is_created).toLocaleDateString()}
           </small>
+        </div>
+        <div className=' mt-4'>
+          <button onClick={()=> tododelete(item.id)} className=' btn btn-danger'>delete</button>
         </div>
       </div>
     </div>
