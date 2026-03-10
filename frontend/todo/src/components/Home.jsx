@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { deletetodo, gettodo, toggletodo } from '../service/apicall'
+import { useNavigate } from 'react-router-dom'
 
 function Home() {
 const [data,setdata]=useState([])
+const navigate=useNavigate()
 
 
     async function fetchtodo() {
@@ -22,6 +24,11 @@ const [data,setdata]=useState([])
       let res=await deletetodo(id)
       console.log(res)
       fetchtodo()
+    }
+   function todoupdate(id){
+    console.log(id)
+    navigate(`/update/${id}`)
+
     }
 
 
@@ -80,6 +87,9 @@ useEffect(()=>{fetchtodo()},[])
         </div>
         <div className=' mt-4'>
           <button onClick={()=> tododelete(item.id)} className=' btn btn-danger'>delete</button>
+        </div>
+        <div className=' mt-4'>
+          <button onClick={()=> todoupdate(item.id)} className=' btn btn-warning'>update</button>
         </div>
       </div>
     </div>

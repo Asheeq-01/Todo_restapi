@@ -14,3 +14,9 @@ export async function createtodo(data){
 export async function deletetodo(id,data){
     return await axios.delete(`http://127.0.0.1:8000/todos/${id}/`,data)
 }
+export async function updatetodo(id,data){
+    return await axios.put(`http://127.0.0.1:8000/todos/${id}/`,data)
+}
+export async function getsingletodo(id){
+    return await axios.get(`http://127.0.0.1:8000/todos/${id}/`)
+  }
